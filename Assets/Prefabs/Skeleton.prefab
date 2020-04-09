@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8301698881905501317}
   - component: {fileID: 8301698881905501314}
   - component: {fileID: 8301698881905501318}
-  - component: {fileID: 8301698881905501321}
   - component: {fileID: 8301698881905501320}
+  - component: {fileID: 1383484850}
   m_Layer: 8
   m_Name: Skeleton
   m_TagString: Enemy
@@ -133,26 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4736042, y: 2.1450496}
   m_EdgeRadius: 0
---- !u!114 &8301698881905501321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8301698881905501315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08060841dff37b545a650ed09ba49da2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrol: {fileID: 8301698882292275358}
-  pivot: {fileID: 8301698883596795812}
-  speed: 2
-  maxAngle: 45
-  maxRadius: 6.25
-  attack_radius: 1.2
-  pause: 2
-  investigation_time: 3
 --- !u!114 &8301698881905501320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +148,28 @@ MonoBehaviour:
   from: {fileID: 8301698881905501316}
   to: {fileID: 8301698882292275358}
   pivot: {fileID: 8301698883596795812}
-  enemy: {fileID: 0}
+  enemy: {fileID: 1383484850}
+--- !u!114 &1383484850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8301698881905501315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811c6649419bb84499dbc2450093f64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivot: {fileID: 8301698883596795812}
+  maxHealth: 0
+  speed: 2
+  maxAngle: 45
+  maxRadius: 6.5
+  attack_radius: 1.7
+  attack_damage: 0
+  player: {fileID: 0}
+  patrolling_spot: {fileID: 8301698882292275358}
 --- !u!1 &8301698882292275359
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +216,7 @@ MonoBehaviour:
   from: {fileID: 8301698881905501316}
   to: {fileID: 8301698882292275358}
   pivot: {fileID: 0}
-  enemy: {fileID: 0}
+  enemy: {fileID: 1383484850}
 --- !u!1 &8301698883596795813
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05dffb67100c5f241a1cf4a9a4bdf2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  from: {fileID: 8301698881905501316}
-  to: {fileID: 8301698882292275358}
+  from: {fileID: 0}
+  to: {fileID: 0}
   pivot: {fileID: 8301698883596795812}
-  enemy: {fileID: 8301698881905501321}
+  enemy: {fileID: 1383484850}

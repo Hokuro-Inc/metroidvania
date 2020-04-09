@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class EnemyGizmos : MonoBehaviour
 {
+    [Header("Patrolling variables")]
     public Transform from;
     public Transform to;
+    [Header("Sight")]
     public Transform pivot;
 
-    public EnemyBehaviour enemy;
+    [Header("EnemyBehaviour variables from script")]
+    public Enemies enemy;
 
     GameObject player;
 
@@ -34,8 +37,8 @@ public class EnemyGizmos : MonoBehaviour
         Gizmos.DrawWireSphere(pivot.position, enemy.maxRadius);
         Gizmos.DrawWireSphere(pivot.position, enemy.attack_radius);
 
-        Vector3 FOVline1 = Quaternion.AngleAxis(enemy.maxAngle, transform.up) * transform.forward * enemy.maxRadius;
-        Vector3 FOVline2 = Quaternion.AngleAxis(-enemy.maxAngle, transform.up) * transform.forward * enemy.maxRadius;
+        Vector3 FOVline1 = Quaternion.AngleAxis(enemy.maxAngle/2, transform.up) * transform.forward * enemy.maxRadius;
+        Vector3 FOVline2 = Quaternion.AngleAxis(-enemy.maxAngle/2, transform.up) * transform.forward * enemy.maxRadius;
 
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(pivot.position, FOVline1);
