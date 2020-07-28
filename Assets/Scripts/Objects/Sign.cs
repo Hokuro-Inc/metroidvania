@@ -11,8 +11,9 @@ public class Sign : Interactable
     [SerializeField] private string dialog;
 
     // Aseguramos que se inicializa desactivado
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         dialogBox.SetActive(false);
     }
 
@@ -37,7 +38,7 @@ public class Sign : Interactable
     protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
-        if (other.CompareTag("Player") && !other.isTrigger)
+        if (other.gameObject.layer == playerLayer && !other.isTrigger)
         {
             dialogBox.SetActive(false);
         }

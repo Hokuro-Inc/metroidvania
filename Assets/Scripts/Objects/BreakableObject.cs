@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BreakableObject : MonoBehaviour, IDamageable
+public class BreakableObject : MonoBehaviour, IDamage
 {
     //test
     public Inventory playerInventory;

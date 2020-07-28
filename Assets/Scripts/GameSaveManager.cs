@@ -3,6 +3,20 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
+/*[System.Serializable]
+public class InventoryData
+{
+    public Inventory playerInventory;
+}
+
+[System.Serializable]
+public class GameData
+{
+    public ExtendedFloatValue playerHealth;
+    public InventoryData playerInventory;
+    public VectorValue playerPosition;
+}*/
+
 public class GameSaveManager : MonoBehaviour
 {
     // Referencia estática del script
@@ -10,6 +24,8 @@ public class GameSaveManager : MonoBehaviour
 
     [Tooltip("Lista de elementos que hay que guardar entre partidas")]
     [SerializeField] private List<GenericScriptableObject> scriptableObjects = new List<GenericScriptableObject>();
+    //[SerializeField] private SaveManager saveManager;
+    //[SerializeField] private GameData gameData;
 
     // Singleton del manager
     void Awake()
@@ -25,7 +41,7 @@ public class GameSaveManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    /*// Carga los datos guardados al empezar
+    // Carga los datos guardados al empezar
     void OnEnable()
     {
         LoadScriptableObjects();
@@ -35,7 +51,7 @@ public class GameSaveManager : MonoBehaviour
     void OnDisable()
     {
         SaveScriptableObjects();
-    }*/
+    }
 
     // Guarda todos los datos
     public void SaveScriptableObjects()
@@ -45,9 +61,16 @@ public class GameSaveManager : MonoBehaviour
             FileStream file = File.Create(Application.persistentDataPath + string.Format("/{0}.dat", i));
             BinaryFormatter binary = new BinaryFormatter();
             var json = JsonUtility.ToJson(scriptableObjects[i]);
+            File.WriteAllText(Application.persistentDataPath + string.Format("/{0}.json", i), json);
             binary.Serialize(file, json);
             file.Close();
         }
+        /*FileStream file = File.Create(Application.persistentDataPath + "/gamedata.save");
+        BinaryFormatter binary = new BinaryFormatter();
+        var json = JsonUtility.ToJson(gameData);
+        File.WriteAllText(Application.persistentDataPath + "/gamedata.json", json);
+        binary.Serialize(file, json);
+        file.Close();*/
     }
 
     // Carga todos los datos
@@ -61,7 +84,14 @@ public class GameSaveManager : MonoBehaviour
             JsonUtility.FromJsonOverwrite((string)binary.Deserialize(file), scriptableObjects[i]);
             file.Close();
             i++;
-        }
+        }/*
+        if (File.Exists(Application.persistentDataPath + "/gamedata.save"))
+        {
+            FileStream file = File.Open(Application.persistentDataPath + "/gamedata.save", FileMode.Open);
+            BinaryFormatter binary = new BinaryFormatter();
+            JsonUtility.FromJsonOverwrite((string)binary.Deserialize(file), saveManager);
+            file.Close();
+        }*/
     }
 
     // Borra todos los datos
@@ -72,7 +102,11 @@ public class GameSaveManager : MonoBehaviour
         {
             File.Delete(Application.persistentDataPath + string.Format("/{0}.dat", i));
             i++;
-        }
+        }/*
+        if (File.Exists(Application.persistentDataPath + "/gamedata.save"))
+        {
+            File.Delete(Application.persistentDataPath + "/gamedata.save");
+        }*/
     }
 
     // Borra los datos guardados y reinicia todas las variables
@@ -83,5 +117,6 @@ public class GameSaveManager : MonoBehaviour
         {
             scriptableObject.Reset();
         }
+        //saveManager.Reset();
     }
 }

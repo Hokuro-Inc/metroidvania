@@ -15,12 +15,13 @@ public class PauseMenu : MonoBehaviour
     [Tooltip("Panel del menú de controles")]
     public GameObject controlsMenu;
 
-    bool isPaused;
+    private bool isPaused = false;
+    private GameObject lastPanel;
 
     // Inicializa el menu de pausa
     void Start()
     {
-        isPaused = false;
+        lastPanel = pauseMenu;
         pauseMenu.SetActive(false);
         inventoryMenu.SetActive(false);
         optionsMenu.SetActive(false);
@@ -32,7 +33,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
         {
-            if (!controlsMenu.activeInHierarchy)
+            if (!controlsMenu.activeInHierarchy && !optionsMenu.activeInHierarchy)
             {
                 isPaused = !isPaused;
             }
@@ -64,37 +65,25 @@ public class PauseMenu : MonoBehaviour
     // Menu de pausa
     public void Pause()
     {
-        pauseMenu.SetActive(isPaused);
-        inventoryMenu.SetActive(false);
-        optionsMenu.SetActive(false);
-        controlsMenu.SetActive(false);
+        ChangePanel(pauseMenu);
     }
 
     // Menú de inventario
     public void Inventory()
     {
-        pauseMenu.SetActive(false);
-        inventoryMenu.SetActive(true);
-        optionsMenu.SetActive(false);
-        controlsMenu.SetActive(false);
+        ChangePanel(inventoryMenu);
     }
 
     // Menú de pciones
     public void Options()
     {
-        pauseMenu.SetActive(false);
-        inventoryMenu.SetActive(false);
-        optionsMenu.SetActive(true);
-        controlsMenu.SetActive(false);
+        ChangePanel(optionsMenu);
     }
     
     // Menú de controles
     public void Controls()
     {
-        pauseMenu.SetActive(false);
-        inventoryMenu.SetActive(false);
-        optionsMenu.SetActive(false);
-        controlsMenu.SetActive(true);
+        ChangePanel(controlsMenu);
     }
 
     // Salir al menú principal
@@ -104,5 +93,12 @@ public class PauseMenu : MonoBehaviour
         InventorySaveManager.inventorySaveManager.SaveItems();
         GameSaveManager.gameSaveManager.SaveScriptableObjects();
         SceneManager.LoadScene(sceneIndex);
+    }
+
+    private void ChangePanel(GameObject panel)
+    {
+        lastPanel.SetActive(false);
+        panel.SetActive(isPaused);
+        lastPanel = panel;
     }
 }

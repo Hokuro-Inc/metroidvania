@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
   currentItem: {fileID: 0}
-  currency: 0
+  currency: 2
   maxPotions: 3
   maxEquipItems: 0
   manaUnlocked: {fileID: 11400000, guid: b434dc59ce6bc054a97ef0b12db54c26, type: 2}

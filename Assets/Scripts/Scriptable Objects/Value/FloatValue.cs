@@ -7,4 +7,9 @@ public class FloatValue : GenericScriptableObject
 {
     [Tooltip("Valor al inicio del juego")]
     public float initialValue;
+
+    public override void Reset()
+    {
+        initialValue = 0f;
+    }
 }

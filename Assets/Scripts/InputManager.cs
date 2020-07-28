@@ -21,10 +21,13 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Text jump;
     [Tooltip("Texto que representa que tecla está asignada a atacar")]
     [SerializeField] private Text attack;
+    [Tooltip("Texto que representa que tecla está asignada al dash")]
+    [SerializeField] private Text dash;
     [Tooltip("Texto que representa que tecla está asignada a interactuar")]
     [SerializeField] private Text interact;
     [Tooltip("Texto que representa que tecla está asignada al inventario")]
-    [SerializeField] private Text inventory/*, pause*/;
+    [SerializeField] private Text inventory;
+    /*, pause*/
 
     // Último botón elegido
     private GameObject currentKey;
@@ -38,8 +41,9 @@ public class InputManager : MonoBehaviour
             { "Right", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Right", "D")) },
             { "Jump", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Jump", "Space")) },
             { "Attack", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Attack", "LeftControl")) },
+            { "Dash", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Dash", "LeftShift")) },
             { "Interact", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Interact", "F")) },
-            { "Inventory", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Inventory", "I")) }
+            { "Inventory", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Inventory", "I")) },
         };
         //keys.Add("Pause", (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Pause", "Escape")));
 
@@ -47,6 +51,7 @@ public class InputManager : MonoBehaviour
         right.text = keys["Right"].ToString();
         jump.text = keys["Jump"].ToString();
         attack.text = keys["Attack"].ToString();
+        dash.text = keys["Dash"].ToString();
         interact.text = keys["Interact"].ToString();
         inventory.text = keys["Inventory"].ToString();
         //pause.text = keys["Pause"].ToString();

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IDamageable
+public class PlayerHealth : MonoBehaviour, IDamage
 {
     [SerializeField] private ExtendedFloatValue health;
     [SerializeField] private Signal healthSignal;
@@ -27,6 +27,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void Die()
     {
-
+        gameObject.GetComponentInParent<PlayerMovement>().gameObject.SetActive(false);
     }
 }

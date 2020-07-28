@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8273314552913518416}
   - component: {fileID: 8273314552913518429}
   - component: {fileID: 8273314552913518428}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 8273314552913518427}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 876b50c8fe9a5d14fb49d160ab87ff25, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -199,10 +199,8 @@ MonoBehaviour:
   maxSpeed: 2
   speed: 50
   jumpPower: 250
+  dashPower: 750
   currentState: 0
-  currentMana: {fileID: 11400000, guid: f2a0656ea41286140b2b8edccd43c099, type: 2}
-  ManaSignal: {fileID: 11400000, guid: 581f33119e21f0346956fc0850029f80, type: 2}
-  playerInventory: {fileID: 11400000, guid: 6b7901c0081deaf439787184acb05e64, type: 2}
 --- !u!1 &8273314553242546610
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +214,7 @@ GameObject:
   - component: {fileID: 7500536019891844652}
   - component: {fileID: 936735026525293835}
   - component: {fileID: 5480183200136727803}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Context Clue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,8 +327,7 @@ GameObject:
   - component: {fileID: 8273314553290210463}
   - component: {fileID: 8273314553290210449}
   - component: {fileID: 8273314553290210448}
-  - component: {fileID: 8273314553290210450}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Attack
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -380,19 +377,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
---- !u!114 &8273314553290210450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8273314553290210462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149b842d61a3c37448645ce339960dfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
 --- !u!1 &8273314554129703556
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +388,7 @@ GameObject:
   - component: {fileID: 8273314554129703557}
   - component: {fileID: 8273314554129703559}
   - component: {fileID: 8273314554129703558}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,9 +437,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a641c8cc86a8d40b5275396e0ccad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platform:
+  layer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1024
 --- !u!1 &8273314554195688293
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +451,7 @@ GameObject:
   - component: {fileID: 8273314554195688294}
   - component: {fileID: 8273314554195688312}
   - component: {fileID: 8273314554195688295}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Health
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -515,7 +499,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.021382168, y: -0.18535161}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -526,5 +510,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.25}
+  m_Size: {x: 0.64319754, y: 1.4210944}
   m_EdgeRadius: 0

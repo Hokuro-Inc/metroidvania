@@ -10,31 +10,47 @@ public enum PlayerState
     staggered
 }
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float maxSpeed;
     public float speed;
     public float jumpPower;
+    public float dashPower;
     public PlayerState currentState;
-    public ExtendedFloatValue currentMana;
+    /*public ExtendedFloatValue currentMana;
     public Signal ManaSignal;
-    public Inventory playerInventory;
+    public Inventory playerInventory;*/
 
     //public bool grounded;
-    bool jump;
+    private bool jump = false;
+    private float normalSizeY;
+    private float dashingSizeY;
+    private float normalOffsetY;
+    private float dashingOffsetY;
+
+    private readonly int speedHash = Animator.StringToHash("Speed");
+    public static readonly int groundedHash = Animator.StringToHash("Grounded");
+    public static readonly int crouchingHash = Animator.StringToHash("Crouching");
+    private readonly int dashingHash = Animator.StringToHash("Dashing");
 
     private Rigidbody2D rb2d;
     private Animator anim;
-    private AnimatorStateInfo stateInfo;
-    private CircleCollider2D col;
+    //private AnimatorStateInfo stateInfo;
+    private BoxCollider2D col;
+    private BoxCollider2D hurtbox;
 
     void Start()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
+        col = gameObject.GetComponent<BoxCollider2D>();
+        hurtbox = gameObject.transform.GetChild(3).GetComponent<BoxCollider2D>();
+
         currentState = PlayerState.moving;
-        col = transform.GetChild(1).GetComponent<CircleCollider2D>();
-        col.enabled = false;
+        normalSizeY = col.size.y;
+        normalOffsetY = col.offset.y;
+        dashingSizeY = 1f;
+        dashingOffsetY = -0.55f;
     }
 
 
@@ -46,42 +62,20 @@ public class Player : MonoBehaviour
             return;
         }
 
-        anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
-                
-        if (Input.GetKeyDown(InputManager.keys["Jump"]) && anim.GetBool("Grounded") && currentState == PlayerState.moving)
+        anim.SetFloat(speedHash, Mathf.Abs(rb2d.velocity.x));
+
+        if (Input.GetKeyDown(InputManager.keys["Jump"]) && anim.GetBool(groundedHash) && !anim.GetBool(crouchingHash) && currentState == PlayerState.moving)
         {
             jump = true;
         }
 
-        if (Input.GetKeyDown(InputManager.keys["Attack"]) && currentState != PlayerState.attacking)
+        if (Input.GetKeyDown(InputManager.keys["Dash"]) && anim.GetBool(groundedHash) && !anim.GetBool(dashingHash) && currentState == PlayerState.moving)
         {
-            rb2d.velocity = Vector3.zero;
-            currentState = PlayerState.attacking;
-            anim.SetTrigger("Attacking");
-            StartCoroutine(AttackCo());
+            anim.SetBool(dashingHash, true);
+            col.size = new Vector2(col.size.x, dashingSizeY);
+            col.offset = new Vector2(col.offset.x, dashingOffsetY);
+            hurtbox.enabled = false;
         }
-
-        stateInfo = anim.GetCurrentAnimatorStateInfo(0);
-        bool attacking = stateInfo.IsName("Attack_0");
-
-        if (attacking)
-        {
-            float playbackTime = stateInfo.normalizedTime;
-            if (playbackTime > 0.33 && playbackTime < 0.66)
-            {
-                col.enabled = true;
-            }
-            else
-            {
-                col.enabled = false;
-            }
-        }
-    }
-
-    private IEnumerator AttackCo()
-    {
-        yield return new WaitForSeconds(0.4f);
-        currentState = PlayerState.moving;
     }
 
     void FixedUpdate()
@@ -95,21 +89,25 @@ public class Player : MonoBehaviour
         
         easeVelocity.x *= 0.75f;
 
-        float h;
-        if (Input.GetKey(InputManager.keys["Left"]) || Input.GetKey(InputManager.keys["Right"]))
+        float h = 0f;
+        if (!anim.GetBool("Dashing"))
         {
-            h = Input.GetKey(InputManager.keys["Right"]) ? 1f : -1f;
-        }
-        else
-        {
-            h = 0f;
+            if (Input.GetKey(InputManager.keys["Left"]) || Input.GetKey(InputManager.keys["Right"]))
+            {
+                h = Input.GetKey(InputManager.keys["Right"]) ? 1f : -1f;
+            }
         }
 
         float peso = rb2d.mass;
 
-        if (anim.GetBool("Grounded"))
+        if (anim.GetBool(groundedHash))
         {
             rb2d.velocity = easeVelocity;
+        }
+
+        if (anim.GetBool(crouchingHash))
+        {
+            rb2d.velocity *= 0.75f;
         }
 
         rb2d.AddForce(((Vector2.right * speed) * h) * peso);
@@ -125,11 +123,30 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
+        if (anim.GetBool(dashingHash))
+        {
+            rb2d.AddForce(Vector2.right * dashPower * transform.localScale.x, ForceMode2D.Impulse);
+            StartCoroutine(DashCo());
+        }
+
+        if (!anim.GetBool(crouchingHash) && !anim.GetBool(dashingHash))
+        {
+            col.size = new Vector2(col.size.x, normalSizeY);
+            col.offset = new Vector2(col.offset.x, normalOffsetY);
+        }
+
         if (jump)
         {
             jump = false;
             rb2d.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         }
+    }
+
+    IEnumerator DashCo()
+    {
+        yield return new WaitForSeconds(0.3f);
+        anim.SetBool(dashingHash, false);
+        hurtbox.enabled = true;
     }
 
     /*public void UpdateHealth(float healthAmount)
@@ -142,7 +159,7 @@ public class Player : MonoBehaviour
         {
             this.gameObject.SetActive(false);
         }
-    }*/
+    }
 
     public void UpdateMana(float manaAmount)
     {
@@ -166,6 +183,6 @@ public class Player : MonoBehaviour
                 playerInventory.currentItem = null;
             }
         }
-    }
+    }*/
 }
 

@@ -1,22 +1,56 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : GenericDamage
 {
-    [Tooltip("Cuanto daño hace el jugador")]
-    public float damage;
+    private readonly int attackingHash = Animator.StringToHash("Attacking");
+    private readonly int crouchingHash = PlayerMovement.crouchingHash;
 
-    /*private void OnTriggerEnter2D(Collider2D other)
+    private Rigidbody2D rb2d;
+    private Animator anim;
+    private CircleCollider2D col;
+    private AnimatorStateInfo stateInfo;
+    private PlayerMovement playerState;
+
+    void Start()
     {
-        if (other.CompareTag("Breakable"))
+        rb2d = gameObject.GetComponentInParent<Rigidbody2D>();
+        anim = gameObject.GetComponentInParent<Animator>();
+        playerState = gameObject.GetComponentInParent<PlayerMovement>();
+        col = gameObject.GetComponent<CircleCollider2D>();
+        col.enabled = false;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(InputManager.keys["Attack"]) && !anim.GetBool(crouchingHash) && playerState.currentState != PlayerState.attacking)
         {
-            other.GetComponent<BreakableObject>().Destroy();
+            rb2d.velocity = Vector3.zero;
+            playerState.currentState = PlayerState.attacking;
+            anim.SetTrigger(attackingHash);
+            StartCoroutine(AttackCo());
         }
 
-        if (other.CompareTag("Enemy"))
+        stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        bool attacking = stateInfo.IsName("Attack_0");
+
+        if (attacking)
         {
-            other.GetComponent<GenericHealth>().Damage(damage);
+            float playbackTime = stateInfo.normalizedTime;
+            if (playbackTime > 0.33 && playbackTime < 0.66)
+            {
+                col.enabled = true;
+            }
+            else
+            {
+                col.enabled = false;
+            }
         }
-    }*/
+    }
+
+    private IEnumerator AttackCo()
+    {
+        yield return new WaitForSeconds(0.4f);
+        playerState.currentState = PlayerState.moving;
+    }
 }

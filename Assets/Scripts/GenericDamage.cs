@@ -8,11 +8,17 @@ public class GenericDamage : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-
-        if (damageable != null)
+        if (TryGetComponent(out IParry parry))
         {
-            damageable.Damage(damage);
+            parry.Parry();
+            return;
+        }
+
+        IDamage damage = other.gameObject.GetComponent<IDamage>();
+
+        if (damage != null)
+        {
+            damage.Damage(this.damage);
         }
     }
 }

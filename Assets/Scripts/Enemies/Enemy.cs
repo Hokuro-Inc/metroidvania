@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyState
+{
+    idle,
+    walking,
+    attacking,
+    stunned,
+    patrolling,
+    chasing
+}
+
 public class Enemy : MonoBehaviour
 {
-    public enum State
-    {
-        idle,
-        walking,
-        attacking,
-        stunned,
-        patrolling,
-        chasing
-    }
-
     [Header("Sight")]
     public Transform pivot;
 
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     public float investigating_timer;
 
     [Header("State")]
-    public State currentState;
+    public EnemyState currentState;
 
     [Header("Player")]
     public GameObject player;
@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
         {
             tmp = player.transform.position;
             remaining_investigating_timer = investigating_timer;
-            currentState = State.chasing;
+            currentState = EnemyState.chasing;
         }
         else if (!CanSeePlayer() && (remaining_investigating_timer -= Time.deltaTime) > 0f)
         {
@@ -96,11 +96,11 @@ public class Enemy : MonoBehaviour
             tmp = homePosition;
             if(Vector2.Distance(transform.position, homePosition) > 0.1f)
             {
-                currentState = State.walking;
+                currentState = EnemyState.walking;
             }
             else
             {
-                currentState = State.idle;
+                currentState = EnemyState.idle;
             }
         }
         return tmp;
@@ -124,17 +124,17 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
-    public void Attack()
+    /*public void Attack()
     {
-        currentState = State.attacking;
-    }
+        currentState = EnemyState.attacking;
+    }*/
 
-    public void TakeDamage(float damage)
+    /*public void TakeDamage(float damage)
     {
         health -= damage;
         if (health <= 0f)
         {
             this.gameObject.SetActive(false);
         }
-    }
+    }*/
 }

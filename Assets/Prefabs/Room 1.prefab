@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7032611190363525011}
   - component: {fileID: 7032611190363525010}
+  - component: {fileID: 1305925266}
   m_Layer: 0
   m_Name: Room 1
   m_TagString: Untagged
@@ -61,6 +62,20 @@ PolygonCollider2D:
       - {x: -11.42819, y: 5.361572}
       - {x: -10.877827, y: -5.643252}
       - {x: 8.66391, y: -5.705629}
+--- !u!114 &1305925266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7032611190363525009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc188934c40d3641bac246d7d17e03f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vCam: {fileID: 7032611191269686408}
+  enemies: []
 --- !u!1 &7032611191233565380
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7032611191269686454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.0200001, z: -10}
+  m_LocalPosition: {x: 0, y: 1.0700002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7032611191233565381}

@@ -23,13 +23,14 @@ public class SettingsMenu : MonoBehaviour
     void Start()
     {
         GetResolutions();
+        GetSavedSettings();
     }
 
     // Actualiza el panel de ajustes
-    void OnEnable()
+    /*void OnEnable()
     {
         GetSavedSettings();
-    }
+    }*/
 
     /*void OnDisable()
     {

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d174c1bd656cb04387a7b59d652d30d, type: 3}
+  m_Name: SaveManager
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 11400000, guid: 290a731add87e29458eab1da20725c21, type: 2}
+  playerInventory: {fileID: 11400000, guid: 6b7901c0081deaf439787184acb05e64, type: 2}
+  playerPosition: {fileID: 11400000, guid: c4842d813190b004f8a79377e8f5ebd8, type: 2}

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GenericHealth : MonoBehaviour, IDamageable
+public class GenericHealth : MonoBehaviour, IDamage
 {
     [SerializeField] private FloatValue health;
     private float currentHealth;

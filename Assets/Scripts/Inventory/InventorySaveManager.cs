@@ -24,7 +24,7 @@ public class InventorySaveManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    /*// Carga los objetos del inventario al empezar
+    // Carga los objetos del inventario al empezar
     void OnEnable()
     {
         LoadInventory();
@@ -38,7 +38,7 @@ public class InventorySaveManager : MonoBehaviour
         ResetEquipment();
         SaveInventory();
         SaveEquipment();
-    }*/
+    }
 
     // Guarda los datos de los objetos del inventario
     private void SaveInventory()

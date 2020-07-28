@@ -23,7 +23,7 @@ public class Skeleton_Idle : Enemy
     {
         target = LookForTarget();
         LookAtTarget(target);
-        if(currentState != State.attacking)
+        if(currentState != EnemyState.attacking)
         {
             if (Vector3.Distance(transform.position, target) > 0.15f)
             {
@@ -39,13 +39,13 @@ public class Skeleton_Idle : Enemy
         
         if (Vector3.Distance(pivot.transform.position, player.transform.GetChild(0).position) <= attack_radius && can_attack)
         {
-            Attack();
+            //Attack();
             anim.SetTrigger("attacking");
             can_attack = false;
         }
         else
         {
-            currentState = State.idle;
+            currentState = EnemyState.idle;
         }
         if((attack_rate_timer -= Time.deltaTime) < 0f)
         {
