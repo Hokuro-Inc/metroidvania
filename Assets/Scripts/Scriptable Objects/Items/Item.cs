@@ -6,16 +6,26 @@ using UnityEngine.Events;
 [System.Serializable]
 public class Item : ScriptableObject
 {
-    [Tooltip("Imagen del objeto")]
-    public Sprite itemSprite;
+    /*[Tooltip("Imagen del objeto")]
+    public string itemSpritePath;*/
+    [Tooltip("Sprite del item")]
+    [SerializeField] public Sprite itemSprite;
     [Tooltip("Nombre del objeto")]
-    public string itemName;
+    [SerializeField] private string itemName;
     [Tooltip("Descripción del objeto")]
-    public string itemDesciption;
+    [SerializeField] public string itemDesciption;
     [Tooltip("Es un objeto utilizable o no")]
-    public bool usable;
+    [SerializeField] public bool usable;
     [Tooltip("Evento que invoca la función correspondiente")]
-    public UnityEvent itemEvent;
+    [SerializeField] private UnityEvent itemEvent;
+
+    /*[JsonIgnore]
+    public Sprite itemSprite;*/
+
+    /*private void Awake()
+    {
+        itemSprite = Resources.Load<Sprite>(itemSpritePath);
+    }*/
 
     // Invoca a la función correspondiente que activa el uso del objeto
     public void Use()

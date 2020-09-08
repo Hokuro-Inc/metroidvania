@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8cdd95c7e4da84ea59550411b3e08d, type: 3}
   m_Name: PlayerInventory
   m_EditorClassIdentifier: 
-  currentItem: {fileID: 0}
-  currency: 2
-  maxPotions: 3
-  maxEquipItems: 0
+  playerHealth: {fileID: 11400000, guid: 290a731add87e29458eab1da20725c21, type: 2}
+  currency: {fileID: 11400000, guid: f401f89713cb94948883b4086417a58f, type: 2}
+  potions: {fileID: 11400000, guid: 8c71d6473309a3345ad847209eb61427, type: 2}
+  maxEquipItems: {fileID: 11400000, guid: 8ee6de67a0d0b834ca65a25f939a8b52, type: 2}
   manaUnlocked: {fileID: 11400000, guid: b434dc59ce6bc054a97ef0b12db54c26, type: 2}
   mana: {fileID: 11400000, guid: f2a0656ea41286140b2b8edccd43c099, type: 2}
+  playerPosition: {fileID: 11400000, guid: c4842d813190b004f8a79377e8f5ebd8, type: 2}
   items: []
   equipment: []

@@ -1,19 +1,20 @@
-﻿using UnityEngine;
+﻿using Hokuro.Debugging;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
     [Tooltip("Índice de la escena del menú principal")]
-    public int sceneIndex;
+    [SerializeField] private int sceneIndex;
     [Header("Paneles del menú")]
     [Tooltip("Panel del menú de pausa")]
-    public GameObject pauseMenu;
+    [SerializeField] private GameObject pauseMenu;
     [Tooltip("Panel del menú de inventario")]
-    public GameObject inventoryMenu;
+    [SerializeField] private GameObject inventoryMenu;
     [Tooltip("Panel del menú de opciones")]
-    public GameObject optionsMenu;
+    [SerializeField] private GameObject optionsMenu;
     [Tooltip("Panel del menú de controles")]
-    public GameObject controlsMenu;
+    [SerializeField] private GameObject inputMenu;
 
     private bool isPaused = false;
     private GameObject lastPanel;
@@ -25,15 +26,15 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         inventoryMenu.SetActive(false);
         optionsMenu.SetActive(false);
-        controlsMenu.SetActive(false);
+        inputMenu.SetActive(false);
     }
 
-    // Compruba que botones se pulsan para activar la pausa o no
+    // Comprueba que botones se pulsan para activar la pausa o no
     void Update()
     {
         if (Input.GetButtonDown("Pause"))
         {
-            if (!controlsMenu.activeInHierarchy && !optionsMenu.activeInHierarchy)
+            if (!inputMenu.activeInHierarchy && !optionsMenu.activeInHierarchy)
             {
                 isPaused = !isPaused;
             }
@@ -45,8 +46,6 @@ public class PauseMenu : MonoBehaviour
             isPaused = true;
             Inventory();
         }
-
-        CheckTimeScale();
     }
 
     // Comprueba si está o no pausado para congelar el juego o no
@@ -81,17 +80,17 @@ public class PauseMenu : MonoBehaviour
     }
     
     // Menú de controles
-    public void Controls()
+    public void Inputs()
     {
-        ChangePanel(controlsMenu);
+        ChangePanel(inputMenu);
     }
 
     // Salir al menú principal
     public void QuitToMenu()
     {
         isPaused = false;
-        InventorySaveManager.inventorySaveManager.SaveItems();
-        GameSaveManager.gameSaveManager.SaveScriptableObjects();
+        //InventorySaveManager.inventorySaveManager.SaveItems();
+        GameSaveManager.instance.SaveData();
         SceneManager.LoadScene(sceneIndex);
     }
 
@@ -99,6 +98,7 @@ public class PauseMenu : MonoBehaviour
     {
         lastPanel.SetActive(false);
         panel.SetActive(isPaused);
+        CheckTimeScale();
         lastPanel = panel;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Signal : ScriptableObject
 {
     // Lista de suscriptores de la señal
-    private List<SignalListener> listeners = new List<SignalListener>();
+    private readonly List<SignalListener> listeners = new List<SignalListener>();
 
     // Recorre la lista llamando a los distintos suscriptores
     public void Raise()
@@ -24,7 +24,7 @@ public class Signal : ScriptableObject
     }
 
     // Elimina suscriptor de la lista
-    public void DeregisterListener(SignalListener listener)
+    public void UnregisterListener(SignalListener listener)
     {
         listeners.Remove(listener);
     }

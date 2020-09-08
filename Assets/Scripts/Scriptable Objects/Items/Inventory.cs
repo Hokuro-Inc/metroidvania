@@ -7,56 +7,71 @@ using UnityEngine;
 public class Inventory : GenericScriptableObject
 {
     // En proceso de estudio
-    public Item currentItem;
+    //public Item currentItem;
+    [Tooltip("Vida del jugador")]
+    [SerializeField] private ExtendedFloatValue playerHealth;
     [Tooltip("Cantidad de dinero actual")]
-    public int currency;
-    [Tooltip("Cantidad máxima de pociones")]
-    public int maxPotions;
+    [SerializeField] private FloatValue currency;
+    [Tooltip("Cantidad de pociones")]
+    [SerializeField] private ExtendedFloatValue potions;
     [Tooltip("Número máximo de objetos equipables actualmente")]
-    public int maxEquipItems;
+    [SerializeField] private FloatValue maxEquipItems;
     [Tooltip("Comprueba si se ha desbloqueado o no la magia")]
-    public BoolValue manaUnlocked;
+    [SerializeField] private BoolValue manaUnlocked;
     [Tooltip("Cantidad actual de maná")]
-    public ExtendedFloatValue mana;
+    [SerializeField] private ExtendedFloatValue mana;
+    [Tooltip("Posición del jugador")]
+    [SerializeField] private VectorValue playerPosition;
     [Tooltip("Objetos en el inventario")]
-    public List<Item> items = new List<Item>();
+    [SerializeField] public List<Item> items = new List<Item>();
     [Tooltip("Objetos equipados")]
-    public List<Item> equipment = new List<Item>();
+    [SerializeField] public List<Item> equipment = new List<Item>();
 
-    // Añade el objeto al inventario del jugador
+    /// <summary>
+    /// Adds the item to the inventory
+    /// </summary>
     public void AddItem(Item item)
     {
         items.Add(item);
     }
 
-    // Borra del inventario
+    /// <summary>
+    /// Deletes the item form the inventory
+    /// </summary>
     public void RemoveItem(Item item)
     {
         items.Remove(item);
     }
 
-
-    // Equipar objeto
+    /// <summary>
+    /// Equips the item
+    /// </summary>
     public void Equip(Item item)
     {
         equipment.Add(item);
     }
 
-    // Desequipa el objeto
+    /// <summary>
+    /// Unequips the item
+    /// </summary>
     public void Unequip(Item item)
     { 
         equipment.Remove(item);
     }
 
-    // Reseta al valor por defecto para empezar nueva partida
+    /// <summary>
+    /// Resets values to their default value to begin a new game
+    /// </summary>
     public override void Reset()
     {
-        currentItem = null;
-        currency = 0;
-        maxPotions = 3;
-        maxEquipItems = 0;
+        //currentItem = null;
+        playerHealth.Reset();
+        currency.Reset();
+        potions.Reset();
+        maxEquipItems.Reset();
         manaUnlocked.Reset();
         mana.Reset();
+        playerPosition.Reset();
         items.Clear();
         equipment.Clear();
     }

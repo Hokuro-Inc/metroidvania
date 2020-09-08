@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour, IInteract
 {
-    // Si está o no en rango
-    protected bool inRange;
     [Tooltip("Señal que activa el aviso")]
     [SerializeField] protected Signal context;
 
     // Capa del jugador
-    protected int playerLayer;
+    /*protected int playerLayer;
 
-    protected virtual void Start()
+    private void Start()
     {
         playerLayer = LayerMask.NameToLayer("Player");
     }
@@ -33,5 +31,7 @@ public class Interactable : MonoBehaviour
             context.Raise();
             inRange = false;
         }
-    }
+    }*/
+
+    public abstract void Interact();
 }

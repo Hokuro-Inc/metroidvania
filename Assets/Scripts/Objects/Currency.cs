@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Currency : Drop, IDrop
 {
-    public Inventory playerInventory;
+    public FloatValue currency;
 
     public override void GiveToPlayer(int amount = 0)
     {
-        playerInventory.currency += amount;
+        currency.initialValue += amount;
         base.GiveToPlayer();
     }
 }

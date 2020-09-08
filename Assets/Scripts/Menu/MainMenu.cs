@@ -6,19 +6,19 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [Tooltip("Índice de la escena a cargar")]
-    public int sceneIndex;
+    [SerializeField] private int sceneIndex;
     [Header("Paneles")]
     [Tooltip("Panel del menú principal")]
-    public GameObject mainMenu;
+    [SerializeField] private GameObject mainMenu;
     [Tooltip("Panel de los ajustes")]
-    public GameObject optionsMenu;
+    [SerializeField] private GameObject optionsMenu;
     [Tooltip("Panel de la pantalla de carga")]
-    public GameObject loadingScreen;
+    [SerializeField] private GameObject loadingScreen;
     [Header("Barra de carga")]
     [Tooltip("Slider de la barra de carga")]
-    public Slider loadingBar;
+    [SerializeField] private Slider loadingBar;
     [Tooltip("Texto de progreso de la barra de carga")]
-    public Text progressText;
+    [SerializeField] private Text progressText;
 
     // Inicializa la pantalla principal
     void Start()
@@ -31,16 +31,17 @@ public class MainMenu : MonoBehaviour
     // Inicia una nueva partida
     public void NewGame()
     {
-        InventorySaveManager.inventorySaveManager.RestartGame();
-        GameSaveManager.gameSaveManager.RestartGame();
+        //InventorySaveManager.inventorySaveManager.RestartGame();
+        GameSaveManager.instance.RestartGame();
         StartCoroutine(LoadAsync());
     }
 
     // Carga la última partida guardada
     public void LoadGame()
     {
-        InventorySaveManager.inventorySaveManager.LoadItems();
-        GameSaveManager.gameSaveManager.LoadScriptableObjects();
+        //InventorySaveManager.inventorySaveManager.LoadItems();
+        //GameSaveManager.gameSaveManager.LoadScriptableObjects();
+        GameSaveManager.instance.LoadData();
         StartCoroutine(LoadAsync());
     }
 

@@ -22,11 +22,11 @@ public class Chest : Interactable
 
     private Animator anim;
 
-    void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
     }
-
+    /*
     void Update()
     {
         if (Input.GetButtonDown("Interact") && inRange)
@@ -40,14 +40,14 @@ public class Chest : Interactable
                 EmptyChest();
             }
         }
-    }
+    }*/
 
     public void OpenChest()
     {
         dialogBox.SetActive(true);
         dialogText.text = item.itemDesciption;
         playerInventory.AddItem(item);
-        playerInventory.currentItem = item;
+        //playerInventory.currentItem = item;
         receiveItem.Raise();
         isOpen = true;
         context.Raise();
@@ -58,5 +58,17 @@ public class Chest : Interactable
     {
         dialogBox.SetActive(false);
         receiveItem.Raise();
+    }
+
+    public override void Interact()
+    {
+        if (!isOpen)
+        {
+            OpenChest();
+        }
+        else
+        {
+            EmptyChest();
+        }
     }
 }

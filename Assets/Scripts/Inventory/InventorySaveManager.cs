@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -28,33 +29,41 @@ public class InventorySaveManager : MonoBehaviour
     void OnEnable()
     {
         LoadInventory();
-        LoadEquipment();
+        //LoadEquipment();
     }
 
     // Borra los datos de los objetos y los reescribe
     void OnDisable()
     {
         ResetInventory();
-        ResetEquipment();
+        //ResetEquipment();
         SaveInventory();
-        SaveEquipment();
+        //SaveEquipment();
     }
 
     // Guarda los datos de los objetos del inventario
     private void SaveInventory()
     {
-        for (int i = 0; i < playerInventory.items.Count; i++)
+        /*for (int i = 0; i < playerInventory.items.Count; i++)
         {
             FileStream file = File.Create(Application.persistentDataPath + string.Format("/{0}.inv", i));
             BinaryFormatter binary = new BinaryFormatter();
             var json = JsonUtility.ToJson(playerInventory.items[i]);
+            File.WriteAllText(Application.persistentDataPath + string.Format("/{0}_.json", i), json);
             binary.Serialize(file, json);
             file.Close();
-        }
+        }*/
+        BinaryFormatter formatter = new BinaryFormatter();
+        Stream stream = new FileStream(Application.persistentDataPath + "/data.sav", FileMode.Create, FileAccess.Write);
+        var json = JsonUtility.ToJson(playerInventory);
+        File.WriteAllText(Application.persistentDataPath + string.Format("/data.json"), json);
+        formatter.Serialize(stream, json);
+        stream.Close();
+        Debug.Log("save");
     }
 
     // Guarda los datos de los objetos equipados
-    private void SaveEquipment()
+    /*private void SaveEquipment()
     {
         for (int i = 0; i < playerInventory.equipment.Count; i++)
         {
@@ -64,12 +73,12 @@ public class InventorySaveManager : MonoBehaviour
             binary.Serialize(file, json);
             file.Close();
         }
-    }
+    }*/
 
     // Carga los datos de los objetos del inventario
     private void LoadInventory()
     {
-        int i = 0;
+        /*int i = 0;
         while (File.Exists(Application.persistentDataPath + string.Format("/{0}.inv", i)))
         {
             var aux = ScriptableObject.CreateInstance<Item>();
@@ -79,11 +88,20 @@ public class InventorySaveManager : MonoBehaviour
             file.Close();
             playerInventory.items.Add(aux);
             i++;
+        }*/
+        if (File.Exists(Application.persistentDataPath + "/data.sav"))
+        {
+            var aux = ScriptableObject.CreateInstance<Inventory>();
+            Stream file = new FileStream(Application.persistentDataPath + "/data.sav", FileMode.Open, FileAccess.Read);
+            BinaryFormatter binary = new BinaryFormatter();
+            JsonUtility.FromJsonOverwrite((string)binary.Deserialize(file), aux);
+            playerInventory = aux;
+            file.Close();
         }
     }
 
     // Carga los datos de los objetos equipados
-    private void LoadEquipment()
+    /*private void LoadEquipment()
     {
         int i = 0;
         while (File.Exists(Application.persistentDataPath + string.Format("/{0}.eqp", i)))
@@ -96,7 +114,7 @@ public class InventorySaveManager : MonoBehaviour
             playerInventory.equipment.Add(aux);
             i++;
         }
-    }
+    }*/
 
     // Borra los datos de los objetos del inventario
     private void ResetInventory()
@@ -110,7 +128,7 @@ public class InventorySaveManager : MonoBehaviour
     }
 
     // Borra los datos de los objetos equipados
-    private void ResetEquipment()
+    /*private void ResetEquipment()
     {
         int i = 0;
         while (File.Exists(Application.persistentDataPath + string.Format("/{0}.eqp", i)))
@@ -118,26 +136,26 @@ public class InventorySaveManager : MonoBehaviour
             File.Delete(Application.persistentDataPath + string.Format("/{0}.eqp", i));
             i++;
         }
-    }
+    }*/
 
     // Llama a los métodos Save
     public void SaveItems()
     {
         SaveInventory();
-        SaveEquipment();
+        //SaveEquipment();
     }
 
     // Llama a los métodos Load
     public void LoadItems()
     {
         LoadInventory();
-        LoadEquipment();
+        //LoadEquipment();
     }
-
+    
     // Llama a los métodos Reset
     public void RestartGame()
     {
         ResetInventory();
-        ResetEquipment();
+        //ResetEquipment();
     }
 }

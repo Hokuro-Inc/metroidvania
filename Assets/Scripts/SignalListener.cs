@@ -23,6 +23,6 @@ public class SignalListener : MonoBehaviour
     // Se desuscribe de la señal
     private void OnDisable()
     {
-        signal.DeregisterListener(this);
+        signal.UnregisterListener(this);
     }
 }

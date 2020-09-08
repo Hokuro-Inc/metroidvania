@@ -11,6 +11,7 @@ public class Room : MonoBehaviour
     // Aseguramos que las cámaras empiezan desactivadas
     void Start()
     {
+        vCam.Follow = FindObjectOfType<PlayerMovementTest>().transform;
         vCam.gameObject.SetActive(false);
     }
 

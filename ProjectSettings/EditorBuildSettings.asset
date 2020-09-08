@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EnemyTestingScene.unity
     guid: 9975550ef429e4d43be331b81d791d9c
+  - enabled: 1
+    path: Assets/Scenes/PlayerTestingScene.unity
+    guid: 7b4b6144dbe7ad74aa501d990086df00
   m_configObjects: {}

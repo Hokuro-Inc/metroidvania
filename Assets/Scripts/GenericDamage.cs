@@ -1,24 +1,33 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
 public class GenericDamage : MonoBehaviour
 {
     [Tooltip("Cuanto daño hace")]
-    [SerializeField] protected float damage;
+    [SerializeField] private float damageAmount;
+    [Tooltip("Capa en la que buscar al objetivo")]
+    [SerializeField] private LayerMask attackableLayer;
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected IDamage damage;
+    protected Collider2D target;
+    protected bool damaged = false;
+
+    protected void Attack()
     {
-        if (TryGetComponent(out IParry parry))
+        target = Physics2D.OverlapCircle(transform.position, 0.5f, attackableLayer);
+
+        if (target != null)
         {
-            parry.Parry();
-            return;
+            damage = target.gameObject.GetComponent<IDamage>();
+
+            if (damage != null)
+            {
+                damaged = true;
+                damage.Damage(damageAmount);
+            }
         }
-
-        IDamage damage = other.gameObject.GetComponent<IDamage>();
-
-        if (damage != null)
+        else
         {
-            damage.Damage(this.damage);
+            damage = null;
         }
     }
 }

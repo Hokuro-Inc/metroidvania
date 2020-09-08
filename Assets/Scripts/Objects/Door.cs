@@ -15,14 +15,14 @@ public class Door : Interactable
     private Collider2D col;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         col = GetComponent<Collider2D>();
         col.enabled = true;
     }
 
     // Update is called once per frame
-    void Update()
+    /*private void Update()
     {
         if (Input.GetButtonDown("Interact") && inRange)
         {
@@ -31,11 +31,19 @@ public class Door : Interactable
                 OpenDoor();
             }
         }
-    }
+    }*/
 
     public void OpenDoor()
     {
         isOpen = true;
         col.enabled = false;
+    }
+
+    public override void Interact()
+    {
+        if (!isOpen)
+        {
+            OpenDoor();
+        }
     }
 }

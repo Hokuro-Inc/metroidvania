@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a74cf3e37e03074baa374d743003e1e, type: 3}
   m_Name: ManaUnlocked
   m_EditorClassIdentifier: 
+  needsSave: 0
+  runtimeSet: {fileID: 11400000, guid: ac34cc53062f14341a106c52a27231da, type: 2}
   initialValue: 0
   runtimeValue: 0
